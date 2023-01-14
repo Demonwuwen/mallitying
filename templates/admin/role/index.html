@@ -1,0 +1,35 @@
+{{ define "admin/role/index.html" }}
+    {{ template "admin/public/page_header.html" .}}
+    <script type="text/javascript" src="/static/admin/js/base.js"></script>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr class="th">
+                <th>角色名称</th>
+                <th>角色状态</th>
+                <th>角色描述</th>
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {{range $key,$val := .roleList}}
+                <tr>
+
+                    <td>{{$val.Title}}</td>
+                    <td>{{$val.Status}}</td>
+                    <td>{{$val.Description}}</td>
+
+                    <td class="text-center">
+                        <a href="/admin/role/edit?id={{$val.Id}}">修改</a>
+                        <a class="delete" href="/admin/role/delete?id={{$val.Id}}">删除</a>
+                    </td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
+
+    </body>
+    </html>
+{{end}}
