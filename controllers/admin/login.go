@@ -66,6 +66,7 @@ func (con LoginController) Captcha(c *gin.Context) {
 		"captchaImage": b64s,
 	})
 }
+
 func (con LoginController) LoginOut(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Delete("userinfo")
