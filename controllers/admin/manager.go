@@ -127,7 +127,7 @@ func (con ManagerController) DoEdit(c *gin.Context) {
 	manager.RoleId = roleId
 	if password != "" {
 		if len(password) < 6 {
-			con.Error(c, "密码长度不合法，不小于6位数", "/admin/manager/edit?="+strconv.Itoa(id))
+			con.Error(c, "密码长度不合法，不小于6位数", "/admin/manager/edit?id="+strconv.Itoa(id))
 			return
 		}
 		manager.Password = utils.Md5(password)
