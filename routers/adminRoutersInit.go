@@ -2,6 +2,7 @@ package routers
 
 import (
 	"demonwuwen/mallitying/controllers/admin"
+	"demonwuwen/mallitying/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -9,7 +10,7 @@ func AdminRoutersInit(r *gin.Engine) {
 	//middlewares.InitMiddleware中间件
 
 	//adminRouters := r.Group("/admin", middlewares.InitAdminAuthMiddleware)
-	adminRouters := r.Group("/admin")
+	adminRouters := r.Group("/admin", middlewares.InitAdminAuthMiddleware)
 	//adminRouters := r.Group("/admin")
 	{
 		adminRouters.GET("/", admin.MainController{}.Index)
@@ -27,10 +28,10 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.POST("/manager/doEdit", admin.ManagerController{}.DoEdit)
 		adminRouters.GET("/manager/delete", admin.ManagerController{}.Delete)
 		//
-		//adminRouters.GET("/focus", admin.FocusController{}.Index)
-		//adminRouters.GET("/focus/add", admin.FocusController{}.Add)
-		//adminRouters.GET("/focus/edit", admin.FocusController{}.Edit)
-		//adminRouters.GET("/focus/delete", admin.FocusController{}.Delete)
+		adminRouters.GET("/focus", admin.FocusController{}.Index)
+		adminRouters.GET("/focus/add", admin.FocusController{}.Add)
+		adminRouters.GET("/focus/edit", admin.FocusController{}.Edit)
+		adminRouters.GET("/focus/delete", admin.FocusController{}.Delete)
 		//
 		adminRouters.GET("/role", admin.RoleController{}.Index)
 		adminRouters.GET("/role/add", admin.RoleController{}.Add)
@@ -39,11 +40,11 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.POST("/role/doEdit", admin.RoleController{}.DoEdit)
 		adminRouters.GET("/role/delete", admin.RoleController{}.Delete)
 
-		//adminRouters.GET("/access", admin.AccessController{}.Index)
-		//adminRouters.GET("/access/add", admin.AccessController{}.Add)
-		//adminRouters.POST("/access/doAdd", admin.AccessController{}.DoAdd)
-		//adminRouters.GET("/access/edit", admin.AccessController{}.Edit)
-		//adminRouters.POST("/access/doEdit", admin.AccessController{}.DoEdit)
-		//adminRouters.GET("/access/delete", admin.AccessController{}.Delete)
+		adminRouters.GET("/access", admin.AccessController{}.Index)
+		adminRouters.GET("/access/add", admin.AccessController{}.Add)
+		adminRouters.POST("/access/doAdd", admin.AccessController{}.DoAdd)
+		adminRouters.GET("/access/edit", admin.AccessController{}.Edit)
+		adminRouters.POST("/access/doEdit", admin.AccessController{}.DoEdit)
+		adminRouters.GET("/access/delete", admin.AccessController{}.Delete)
 	}
 }
