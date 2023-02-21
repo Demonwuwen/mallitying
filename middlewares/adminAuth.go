@@ -32,6 +32,8 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 			if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
 				c.Redirect(http.StatusFound, "/admin/login")
 			}
+		} else {
+			//用户登陆成功 权限判断
 		}
 	} else {
 		if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "admin/captcha" {

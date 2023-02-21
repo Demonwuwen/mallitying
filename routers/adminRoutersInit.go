@@ -21,6 +21,8 @@ func AdminRoutersInit(r *gin.Engine) {
 	{
 		adminRouters.GET("/", admin.MainController{}.Index)
 		adminRouters.GET("/welcome", admin.MainController{}.Welcome)
+		adminRouters.GET("/changeStatus", admin.MainController{}.ChangeStatus)
+		adminRouters.GET("/changeNum", admin.MainController{}.ChangeNum)
 
 		//adminRouters.GET("/login", admin.LoginController{}.Index)
 		//adminRouters.GET("/captcha", admin.LoginController{}.Captcha)
@@ -36,7 +38,9 @@ func AdminRoutersInit(r *gin.Engine) {
 		//
 		adminRouters.GET("/focus", admin.FocusController{}.Index)
 		adminRouters.GET("/focus/add", admin.FocusController{}.Add)
+		adminRouters.POST("/focus/doAdd", admin.FocusController{}.DoAdd)
 		adminRouters.GET("/focus/edit", admin.FocusController{}.Edit)
+		adminRouters.POST("/focus/doEdit", admin.FocusController{}.DoEdit)
 		adminRouters.GET("/focus/delete", admin.FocusController{}.Delete)
 		//
 		adminRouters.GET("/role", admin.RoleController{}.Index)
@@ -45,6 +49,8 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.GET("/role/edit", admin.RoleController{}.Edit)
 		adminRouters.POST("/role/doEdit", admin.RoleController{}.DoEdit)
 		adminRouters.GET("/role/delete", admin.RoleController{}.Delete)
+		adminRouters.GET("/role/auth", admin.RoleController{}.Auth)
+		adminRouters.POST("/role/doAuth", admin.RoleController{}.DoAuth)
 
 		adminRouters.GET("/access", admin.AccessController{}.Index)
 		adminRouters.GET("/access/add", admin.AccessController{}.Add)
@@ -52,5 +58,12 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.GET("/access/edit", admin.AccessController{}.Edit)
 		adminRouters.POST("/access/doEdit", admin.AccessController{}.DoEdit)
 		adminRouters.GET("/access/delete", admin.AccessController{}.Delete)
+
+		adminRouters.GET("/goodsCate", admin.GoodsCateController{}.Index)
+		adminRouters.GET("/goodsCate/add", admin.GoodsCateController{}.Add)
+		adminRouters.POST("/goodsCate/doAdd", admin.GoodsCateController{}.DoAdd)
+		adminRouters.GET("/goodsCate/edit", admin.GoodsCateController{}.Edit)
+		adminRouters.POST("/goodsCate/doEdit", admin.GoodsCateController{}.DoEdit)
+		adminRouters.GET("/goodsCate/delete", admin.GoodsCateController{}.Delete)
 	}
 }

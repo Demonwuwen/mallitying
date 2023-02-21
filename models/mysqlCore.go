@@ -16,7 +16,8 @@ var err error
 func init() {
 	//读取.ini里面的数据库配置
 
-	config, iniErr := ini.Load("./conf/app.ini")
+	//config, iniErr := ini.Load("./conf/app.ini")
+	config, iniErr := ini.Load("/Users/demon/go/src/Demonwuwen/mallitying/conf/app.ini")
 	if iniErr != nil {
 		fmt.Printf("Fail to read file: %v", iniErr)
 		os.Exit(1)
@@ -38,4 +39,5 @@ func init() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	DB.AutoMigrate(&Access{}, &Role{}, &Manager{}, &User{})
 }

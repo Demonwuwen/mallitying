@@ -11,9 +11,9 @@ type Access struct {
 	Description string
 	Status      int
 	AddTime     int
+	Role        []*Role  `json:"-" gorm:"many2many:role_access;"` //用户之间的多对多
 	AccessItem  []Access `gorm:"foreignKey:ModuleId;references:Id"`
-
-	// Checked     bool     `gorm:"-"` // 忽略本字段
+	Checked     bool     `gorm:"-"` // 忽略本字段
 }
 
 func (Access) TableName() string {

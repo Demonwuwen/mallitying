@@ -8,6 +8,8 @@ import (
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"html/template"
+
+	_ "net/http/pprof"
 )
 
 func main() {
@@ -31,5 +33,5 @@ func main() {
 
 	routers.AdminRoutersInit(r)
 
-	r.Run(":11111")
+	r.Run(":8080")
 }

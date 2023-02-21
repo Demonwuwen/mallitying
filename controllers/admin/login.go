@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"strings"
 
 	"net/http"
 )
@@ -27,16 +28,19 @@ func (con LoginController) DoLogin(c *gin.Context) {
 	captchaId := c.PostForm("captchaId")
 	username := c.PostForm("username")
 	password := c.PostForm("password")
-	verifyValue := c.PostForm("verifyValue")
+	verifyValue := strings.Trim(c.PostForm("verifyValue"), " ")
 	fmt.Println(username, password)
+	password5 := utils.Md5(password)
+	fmt.Println("md5 passwd1 = ", password5)
 	//1、验证验证码是否正确
 	if flag := models.VerifyCaptcha(captchaId, verifyValue); flag {
 		//2、查询数据库 判断用户以及密码是否存在
 		userinfoList := []models.Manager{}
 		password = utils.Md5(password)
-
+		fmt.Println("md5 passwd2 = ", password)
+		fmt.Println("find user = ")
 		models.DB.Where("username=? AND password=?", username, password).Find(&userinfoList)
-
+		fmt.Println("userinfoList = ", &userinfoList)
 		if len(userinfoList) > 0 {
 			//3、执行登录 保存用户信息 执行跳转
 			session := sessions.Default(c)

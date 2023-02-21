@@ -104,16 +104,16 @@ func (con AccessController) DoEdit(c *gin.Context) {
 	//	fmt.Println("err5 =", err5)
 	//}
 	if err1 != nil || err2 != nil || err3 != nil || err4 != nil || err5 != nil {
-		con.Error(c, "传输ID数据错误", "/admin/access/edit?id="+string(id))
+		con.Error(c, "传输ID数据错误", "/admin/access/edit?id="+strconv.Itoa(id))
 		return
 	}
 
 	if moduleName == "" {
-		con.Error(c, "模块名称不能为空", "/admin/access/edit?id="+string(id))
+		con.Error(c, "模块名称不能为空", "/admin/access/edit?id="+strconv.Itoa(id))
 		return
 	}
 	if accessType != 1 && actionName == "" {
-		con.Error(c, "操作名称不能为空", "/admin/access/edit?id="+string(id))
+		con.Error(c, "操作名称不能为空", "/admin/access/edit?id="+strconv.Itoa(id))
 		return
 	}
 
@@ -136,5 +136,27 @@ func (con AccessController) DoEdit(c *gin.Context) {
 	con.Success(c, "数据更新成功", "/admin/access")
 }
 func (con AccessController) Delete(c *gin.Context) {
-	c.String(http.StatusOK, "-delete-")
+	//c.String(http.StatusOK, "-delete-")
+	id, err := strconv.Atoi(c.Query("id"))
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/access")
+	} else {
+		//获取我们要删除的数据
+		access := models.Access{Id: id}
+		models.DB.Find(&access)
+		if access.ModuleId == 0 { //顶级模块
+			accessList := []models.Access{}
+			models.DB.Where("module_id = ?", access.Id).Find(&accessList)
+			if len(accessList) > 0 {
+				con.Error(c, "当前模块下面有菜单或者操作，请删除菜单或者操作以后再来删除这个数据", "/admin/access")
+			} else {
+				models.DB.Delete(&access)
+				con.Success(c, "删除数据成功", "/admin/access")
+			}
+		} else { //操作 或者菜单
+			models.DB.Delete(&access)
+			con.Success(c, "删除数据成功", "/admin/access")
+		}
+
+	}
 }

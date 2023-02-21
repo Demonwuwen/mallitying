@@ -10,7 +10,7 @@
     <div class="panel-body">
         <div class="table-responsive input-form">
             <form action="/admin/access/doEdit" method="post">
-                <input type="hidden" name="id" value="{{.access.Id}}">
+                <input type="hidden" name="id" value="{{.access.Id}}" />
                 <ul>
 
                     <li> 模块名称: <input type="text" name="module_name" value="{{.access.ModuleName}}" /></li>
@@ -30,10 +30,10 @@
 
                     <li> 所属模块:
                         <select name="module_id" id="module_id">
-                            <option value="0">---顶级模块--</option>
-                            {{$moduleId := .access.Id}}
+                            <option value="0">---顶级模块--</option>  
+                            {{$moduleId := .access.ModuleId}}
                             {{range $key,$value := .accessList}}
-                                <option {{if eq $value.Id $moduleId}} selected {{end}} value="{{$value.Id}}">{{$value.ModuleName}}</option>
+                                <option {{if eq $value.Id $moduleId}} selected {{end}} value="{{$value.Id}}">{{$value.ModuleName}}</option>  
                             {{end}}
                          </select>
                     </li>
@@ -47,7 +47,7 @@
 
 
                     <li>  状　　态:
-                        <input type="radio" name="status" {{if eq .access.Status 1}} checked {{end}} value="1" id="a"/> <label for="a">显示</label>
+                        <input type="radio" name="status" {{if eq .access.Status 1}} checked {{end}}  value="1" id="a"/> <label for="a">显示</label>  
                         
                         <input type="radio" name="status" {{if eq .access.Status 0}} checked {{end}} value="0" id="b"/><label for="b">隐藏</label> 　
                     </li>

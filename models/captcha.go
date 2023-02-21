@@ -40,8 +40,10 @@ func MakeCaptcha() (string, string, error) {
 func VerifyCaptcha(id string, VerifyValue string) bool {
 	fmt.Println(id, VerifyValue)
 	if store.Verify(id, VerifyValue, true) {
+		fmt.Println("验证吗成功")
 		return true
 	} else {
+		fmt.Println("验证吗失败")
 		return false
 	}
 }
